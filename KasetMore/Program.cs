@@ -34,6 +34,8 @@ builder.Services.AddDbContext<KasetMoreContext>(options =>
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IUnitRepository, UnitRepository>();
 
 var app = builder.Build();
 
