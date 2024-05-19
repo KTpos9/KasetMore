@@ -14,6 +14,8 @@ public partial class KasetMoreContext : DbContext
     {
     }
 
+    public virtual DbSet<Category> Categories { get; set; }
+
     public virtual DbSet<Product> Products { get; set; }
 
     public virtual DbSet<ProductImage> ProductImages { get; set; }
@@ -27,6 +29,26 @@ public partial class KasetMoreContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.UseCollation("Thai_CS_AS");
+
+        modelBuilder.Entity<Category>(entity =>
+        {
+            entity.HasKey(e => e.CategoryName);
+
+            entity.ToTable("category");
+
+            entity.Property(e => e.CategoryName)
+                .HasMaxLength(50)
+                .HasColumnName("category_name");
+            entity.Property(e => e.CategoryDesc)
+                .HasMaxLength(250)
+                .HasColumnName("category_desc");
+            entity.Property(e => e.CreateDate)
+                .HasColumnType("datetime")
+                .HasColumnName("create_date");
+            entity.Property(e => e.UpdateDate)
+                .HasColumnType("datetime")
+                .HasColumnName("update_date");
+        });
 
         modelBuilder.Entity<Product>(entity =>
         {
