@@ -1,4 +1,5 @@
-﻿using KasetMore.Data.Models;
+﻿using KasetMore.ApplicationCore.Models;
+using KasetMore.Data.Models;
 using KasetMore.Data.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,7 +38,19 @@ namespace KasetMore.Controllers
                 return BadRequest(e.Message);
             }
         }
-        [HttpPost("update-rpoduct")]
+        [HttpGet("get-by-email")]
+        public async Task<IActionResult> GetProductByEmail(string email)
+        {
+            try
+            {
+                return Ok(_productRepository.GetProductByEmail(email));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        [HttpPost("update-product")]
         public async Task<IActionResult> UpdateProduct(Product product)
         {
             try
@@ -51,7 +64,7 @@ namespace KasetMore.Controllers
             }
         }
         [HttpPost("add-product")]
-        public async Task<IActionResult> AddProduct(Product product)
+        public async Task<IActionResult> AddProduct(ProductModel product)
         {
             try
             {
