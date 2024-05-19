@@ -1,4 +1,5 @@
-﻿using KasetMore.Data.Models;
+﻿using KasetMore.ApplicationCore.Models;
+using KasetMore.Data.Models;
 using KasetMore.Data.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,11 +27,40 @@ namespace KasetMore.Data.Repositories
                 .Include(p => p.ProductImages)
                 .FirstOrDefaultAsync();
         }
-        public async Task AddProduct(Product product)
+        public async Task<List<Product>> GetProductByEmail(string email)
+        {
+            return await _context.Products
+                .Where(p => p.UserEmail == email)
+                .Include(p => p.ProductImages)
+                .ToListAsync();
+        }
+        public async Task AddProduct(ProductModel product)
         {
             try
             {
-                await _context.Products.AddAsync(product);
+                var base64Images = new List<ProductImage>();
+                foreach (var image in product.ProductImages)
+                {
+                    using var stream = new MemoryStream();
+                    await image.CopyToAsync(stream);
+                    base64Images.Add(new ProductImage
+                    {
+                        Image = Convert.ToBase64String(stream.ToArray())
+                    });
+                }
+                var productToAdd = new Product
+                {
+                    ProductName = product.ProductName,
+                    Province = product.Province,
+                    Rating = product.Rating,
+                    Amount = product.Amount,
+                    UserEmail = product.UserEmail,
+                    Price = product.Price,
+                    ProductImages = base64Images,
+                    CreateDate = DateTime.Now,
+                    UpdateDate = DateTime.Now
+                };
+                await _context.Products.AddAsync(productToAdd);
                 await _context.SaveChangesAsync();
             }
             catch (Exception)

@@ -17,9 +17,9 @@ public partial class Product
 
     public string UserEmail { get; set; } = null!;
 
-    public decimal Price { get; set; }
+    public string Category { get; set; } = null!;
 
-    public string Image { get; set; } = null!;
+    public decimal Price { get; set; }
 
     public DateTime? CreateDate { get; set; }
 
