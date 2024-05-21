@@ -69,7 +69,7 @@ namespace KasetMore.Controllers
         {
             try
             {
-                await _productRepository.AddProduct(product);
+                await _productRepository.AddProduct(product, images);
                 return Ok();
             }
             catch (Exception e)
