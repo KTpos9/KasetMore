@@ -28,14 +28,10 @@ namespace KasetMore.Data.Repositories
                 })
                 .FirstOrDefaultAsync();
         }
-        public async Task Register(RegisterModel registerModel)
+        public async Task Register(User user)
         {
             try
             {
-                var user = new User
-                {
-
-                };
                 _context.Users.Add(user);
                 await _context.SaveChangesAsync();
             } 
