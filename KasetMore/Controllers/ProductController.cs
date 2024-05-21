@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace KasetMore.Controllers
 {
+    [Route("api/[controller]")]
     public class ProductController : ControllerBase
     {
         private readonly IProductRepository _productRepository;
@@ -19,7 +20,7 @@ namespace KasetMore.Controllers
         {
             try
             {
-                return Ok(_productRepository.GetProducts());
+                return Ok(await _productRepository.GetProducts());
             }
             catch (Exception e)
             {
@@ -31,7 +32,7 @@ namespace KasetMore.Controllers
         {
             try
             {
-                return Ok(_productRepository.GetProductById(id));
+                return Ok(await _productRepository.GetProductById(id));
             }
             catch (Exception e)
             {
@@ -43,7 +44,7 @@ namespace KasetMore.Controllers
         {
             try
             {
-                return Ok(_productRepository.GetProductByEmail(email));
+                return Ok(await _productRepository.GetProductByEmail(email));
             }
             catch (Exception e)
             {
@@ -64,7 +65,7 @@ namespace KasetMore.Controllers
             }
         }
         [HttpPost("add-product")]
-        public async Task<IActionResult> AddProduct(ProductModel product)
+        public async Task<IActionResult> AddProduct(ProductModel product, [FromForm] List<IFormFile> images)
         {
             try
             {
