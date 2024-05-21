@@ -1,6 +1,7 @@
 ﻿using KasetMore.ApplicationCore.Models;
 using KasetMore.Data.Models;
 using KasetMore.Data.Repositories.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace KasetMore.Data.Repositories
@@ -34,12 +35,12 @@ namespace KasetMore.Data.Repositories
                 .Include(p => p.ProductImages)
                 .ToListAsync();
         }
-        public async Task AddProduct(ProductModel product)
+        public async Task AddProduct(ProductModel product, List<IFormFile> images)
         {
             try
             {
                 var base64Images = new List<ProductImage>();
-                foreach (var image in product.ProductImages)
+                foreach (var image in images)
                 {
                     using var stream = new MemoryStream();
                     await image.CopyToAsync(stream);
