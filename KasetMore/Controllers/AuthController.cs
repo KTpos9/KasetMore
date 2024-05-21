@@ -30,11 +30,11 @@ namespace KasetMore.Controllers
                 : BadRequest();
         }
         [HttpPost("register")]
-        public async Task<IActionResult> Register(RegisterModel registerModel)
+        public async Task<IActionResult> Register(User user)
         {
             try
             {
-                await _userRepository.Register(registerModel);
+                await _userRepository.Register(user);
                 return Ok();
             }
             catch (Exception e)
