@@ -1,4 +1,6 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+
 namespace KasetMore.Data.Models;
 
 public partial class Category

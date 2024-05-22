@@ -7,9 +7,9 @@ public partial class Transaction
 {
     public int TransactionId { get; set; }
 
-    public int SellerEmail { get; set; }
+    public string SellerEmail { get; set; } = null!;
 
-    public int BuyerEmail { get; set; }
+    public string BuyerEmail { get; set; } = null!;
 
     public int ProductId { get; set; }
 

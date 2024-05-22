@@ -1,7 +1,8 @@
-﻿using KasetMore.Data.Models;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace KasetMore.Data;
+namespace KasetMore.Data.Models;
 
 public partial class KasetMoreContext : DbContext
 {
@@ -113,13 +114,17 @@ public partial class KasetMoreContext : DbContext
                 .ValueGeneratedNever()
                 .HasColumnName("transaction_id");
             entity.Property(e => e.Amount).HasColumnName("amount");
-            entity.Property(e => e.BuyerEmail).HasColumnName("buyer_email");
+            entity.Property(e => e.BuyerEmail)
+                .HasMaxLength(50)
+                .HasColumnName("buyer_email");
             entity.Property(e => e.CreateDate)
                 .HasColumnType("datetime")
                 .HasColumnName("create_date");
             entity.Property(e => e.Price).HasColumnName("price");
             entity.Property(e => e.ProductId).HasColumnName("product_id");
-            entity.Property(e => e.SellerEmail).HasColumnName("seller_email");
+            entity.Property(e => e.SellerEmail)
+                .HasMaxLength(50)
+                .HasColumnName("seller_email");
             entity.Property(e => e.Unit)
                 .HasMaxLength(20)
                 .HasColumnName("unit");
@@ -161,12 +166,18 @@ public partial class KasetMoreContext : DbContext
             entity.Property(e => e.FirstName)
                 .HasMaxLength(20)
                 .HasColumnName("first_name");
+            entity.Property(e => e.IdNumber)
+                .HasMaxLength(50)
+                .HasColumnName("id_number");
             entity.Property(e => e.IsVerified)
                 .HasMaxLength(1)
                 .IsUnicode(false)
                 .HasDefaultValue("N")
                 .IsFixedLength()
                 .HasColumnName("is_verified");
+            entity.Property(e => e.LaserCode)
+                .HasMaxLength(50)
+                .HasColumnName("laser_code");
             entity.Property(e => e.LastName)
                 .HasMaxLength(20)
                 .HasColumnName("last_name");

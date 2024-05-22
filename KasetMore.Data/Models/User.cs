@@ -23,6 +23,10 @@ public partial class User
 
     public string IsVerified { get; set; } = null!;
 
+    public string? LaserCode { get; set; }
+
+    public string? IdNumber { get; set; }
+
     public string PhoneNumber { get; set; } = null!;
 
     public DateTime? CreateDate { get; set; }
