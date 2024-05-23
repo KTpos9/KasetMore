@@ -1,5 +1,6 @@
 using FluentValidation;
 using KasetMore.Data;
+using KasetMore.Data.Models;
 using KasetMore.Data.Repositories;
 using KasetMore.Data.Repositories.Interfaces;
 using KasetMore.Services;
@@ -54,5 +55,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyMethod().AllowAnyOrigin());
 
 app.Run();
