@@ -1,6 +1,5 @@
 using FluentValidation;
 using KasetMore.Data;
-using KasetMore.Data.Models;
 using KasetMore.Data.Repositories;
 using KasetMore.Data.Repositories.Interfaces;
 using KasetMore.Services;
