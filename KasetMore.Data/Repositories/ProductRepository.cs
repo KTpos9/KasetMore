@@ -57,11 +57,12 @@ namespace KasetMore.Data.Repositories
                     Amount = product.Amount,
                     UserEmail = product.UserEmail,
                     Price = product.Price,
+                    Category = product.Category,
                     ProductImages = base64Images,
                     CreateDate = DateTime.Now,
                     UpdateDate = DateTime.Now
                 };
-                await _context.Products.AddAsync(productToAdd);
+                await _context.AddAsync(productToAdd);
                 await _context.SaveChangesAsync();
             }
             catch (Exception)
