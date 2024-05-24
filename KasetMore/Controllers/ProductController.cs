@@ -51,6 +51,18 @@ namespace KasetMore.Controllers
                 return BadRequest(e.Message);
             }
         }
+        [HttpPost("get-by-category")]
+        public async Task<IActionResult> GetProductByCategory(string category)
+        {
+            try
+            {
+                return Ok(await _productRepository.GetProductByCategory(category));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
         [HttpPost("update-product")]
         public async Task<IActionResult> UpdateProduct(Product product)
         {
