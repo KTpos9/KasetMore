@@ -35,6 +35,13 @@ namespace KasetMore.Data.Repositories
                 .Include(p => p.ProductImages)
                 .ToListAsync();
         }
+        public async Task<List<Product>> GetProductByCategory(string category)
+        {
+            return await _context.Products
+                .Where(p => p.Category == category)
+                .Include(p => p.ProductImages)
+                .ToListAsync();
+        }
         public async Task AddProduct(ProductModel product, List<IFormFile> images)
         {
             try

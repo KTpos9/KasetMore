@@ -10,6 +10,7 @@ namespace KasetMore.Data.Repositories.Interfaces
         Task DeleteProduct(int id);
         Task<Product?> GetProductById(int id);
         Task<List<Product>> GetProductByEmail(string email);
+        Task<List<Product>> GetProductByCategory(string category);
         Task<List<Product>> GetProducts();
         Task UpdateProduct(Product product);
     }
