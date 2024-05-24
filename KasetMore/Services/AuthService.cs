@@ -29,20 +29,17 @@ namespace KasetMore.Services
             {
                 null => (null, null),
                 var user when user.Password != request.Password => (null, null),
-                _ => (GenerateJwtToken(request.Email, "User"), result.ProfilePicture)
+                var user when user.UserType == "Admin" => (GenerateJwtToken(request.Email, "Admin", result.DisplayName), result.ProfilePicture),
+                var user when user.UserType == "Seller" => (GenerateJwtToken(request.Email, "Seller", result.DisplayName), result.ProfilePicture),
+                _ => (GenerateJwtToken(request.Email, "User", result.DisplayName), result.ProfilePicture)
             };
-            //var result = await _loginValidator.ValidateAsync(request);
-            //if (result.IsValid)
-            //{
-            //    return GenerateJwtToken(request.Email, request.Password);
-            //}
-            //return null;
         }
-        private string GenerateJwtToken(string name, string userType)
+        private string GenerateJwtToken(string email, string userType, string displayName)
         {
             List<Claim> claims = new List<Claim>
             {
-                new Claim("Name", name),
+                new Claim("Email", email),
+                new Claim($"DisplayName", displayName),
                 new Claim("UserType", userType)
             };
 
