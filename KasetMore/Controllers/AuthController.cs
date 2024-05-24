@@ -89,5 +89,17 @@ namespace KasetMore.Controllers
                 return BadRequest(e.Message);
             }
         }
+        [HttpPost("user-by-email")]
+        public async Task<IActionResult> GetUserByEmail(string email)
+        {
+            try
+            {
+                return Ok(await _userRepository.GetUserByEmail(email));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
     }
 }
