@@ -93,7 +93,6 @@ public partial class KasetMoreContext : DbContext
             entity.ToTable("product_image");
 
             entity.Property(e => e.AttatchmentId)
-                .ValueGeneratedNever()
                 .HasColumnName("attatchment_id");
             entity.Property(e => e.Image)
                 .IsUnicode(false)
