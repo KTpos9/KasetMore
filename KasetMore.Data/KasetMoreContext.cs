@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
+using KasetMore.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace KasetMore.Data.Models;
+namespace KasetMore.Data;
 
 public partial class KasetMoreContext : DbContext
 {
@@ -63,6 +63,9 @@ public partial class KasetMoreContext : DbContext
             entity.Property(e => e.CreateDate)
                 .HasColumnType("datetime")
                 .HasColumnName("create_date");
+            entity.Property(e => e.Description)
+                .HasMaxLength(250)
+                .HasColumnName("description");
             entity.Property(e => e.Price)
                 .HasColumnType("decimal(18, 0)")
                 .HasColumnName("price");
@@ -73,6 +76,9 @@ public partial class KasetMoreContext : DbContext
                 .HasMaxLength(20)
                 .HasColumnName("province");
             entity.Property(e => e.Rating).HasColumnName("rating");
+            entity.Property(e => e.Unit)
+                .HasMaxLength(20)
+                .HasColumnName("unit");
             entity.Property(e => e.UpdateDate)
                 .HasColumnType("datetime")
                 .HasColumnName("update_date");
@@ -92,8 +98,7 @@ public partial class KasetMoreContext : DbContext
 
             entity.ToTable("product_image");
 
-            entity.Property(e => e.AttatchmentId)
-                .HasColumnName("attatchment_id");
+            entity.Property(e => e.AttatchmentId).HasColumnName("attatchment_id");
             entity.Property(e => e.Image)
                 .IsUnicode(false)
                 .HasColumnName("image");
