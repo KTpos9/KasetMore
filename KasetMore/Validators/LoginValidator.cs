@@ -31,7 +31,7 @@ namespace KasetMore.Validators
         }
         private async Task<bool> IsValidPassword(LoginModel model)
         {
-            var user = await _userRepository.GetUserByEmail(model.Email);
+            var user = await _userRepository.AuthenticateUser(model.Email);
             if(user is null)
             {
                 return false;

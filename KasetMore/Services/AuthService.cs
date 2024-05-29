@@ -24,7 +24,7 @@ namespace KasetMore.Services
         }
         public async Task<(string?, string?)> Authenticate(LoginModel request)
         {
-            var result = await _userRepository.GetUserByEmail(request.Email);
+            var result = await _userRepository.AuthenticateUser(request.Email);
             return result switch
             {
                 null => (null, null),
