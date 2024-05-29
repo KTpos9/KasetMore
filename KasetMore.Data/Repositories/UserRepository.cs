@@ -22,10 +22,26 @@ namespace KasetMore.Data.Repositories
                 .Select(u => new UserDto
                 {
                     Email = u.Email,
-                    Password = u.Password,
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
                     DisplayName = u.DisplayName,
+                    PhoneNumber = u.PhoneNumber,
+                    Address = u.Address,
+                    UserType = u.UserType,
                     ProfilePicture = u.ProfilePicture,
                 })
+                .FirstOrDefaultAsync();
+        }
+        public async Task<User?> AuthenticateUser(string email)
+        {
+            return await _context.Users
+                .Where(u => u.Email == email)
+                .Select(user => new User
+                {
+                    Password = user.Password,
+                    UserType = user.UserType
+                })
+                .AsNoTracking()
                 .FirstOrDefaultAsync();
         }
         public async Task Register(User user)

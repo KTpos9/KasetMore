@@ -7,6 +7,7 @@ namespace KasetMore.Data.Repositories.Interfaces
     public interface IUserRepository
     {
         Task<UserDto?> GetUserByEmail(string email);
+        Task<User?> AuthenticateUser(string email);
         Task Register(User user);
         Task UpdateProfile(User userRequest);
         Task UpdateProfilePicture(IFormFile profilePicture, string email);
