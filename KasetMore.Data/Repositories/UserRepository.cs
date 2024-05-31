@@ -27,6 +27,7 @@ namespace KasetMore.Data.Repositories
                     DisplayName = u.DisplayName,
                     PhoneNumber = u.PhoneNumber,
                     Address = u.Address,
+                    IsVerified = u.IsVerified,
                     UserType = u.UserType,
                     ProfilePicture = u.ProfilePicture,
                 })
