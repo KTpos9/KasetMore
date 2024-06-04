@@ -40,7 +40,8 @@ namespace KasetMore.Data.Repositories
                 .Select(user => new User
                 {
                     Password = user.Password,
-                    UserType = user.UserType
+                    UserType = user.UserType,
+                    DisplayName = user.DisplayName,
                 })
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
