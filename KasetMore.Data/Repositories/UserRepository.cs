@@ -1,4 +1,5 @@
-﻿using KasetMore.ApplicationCore.Models;
+﻿using KasetMore.ApplicationCore.Extensions;
+using KasetMore.ApplicationCore.Models;
 using KasetMore.Data.Models;
 using KasetMore.Data.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http;
@@ -32,6 +33,13 @@ namespace KasetMore.Data.Repositories
                     ProfilePicture = u.ProfilePicture,
                 })
                 .FirstOrDefaultAsync();
+        }
+        public async Task<List<User>> GetUserByUserType(string userType, string? flag = null)
+        {
+            return await _context.Users
+                .Where(u => u.UserType == userType)
+                .WhereIf(!string.IsNullOrEmpty(flag), u => u.IsVerified == flag)
+                .ToListAsync();
         }
         public async Task<User?> AuthenticateUser(string email)
         {

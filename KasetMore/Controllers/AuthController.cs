@@ -101,5 +101,17 @@ namespace KasetMore.Controllers
                 return StatusCode(500, e.Message);
             }
         }
+        [HttpPost("user-by-usertype")]
+        public async Task<IActionResult> GetUserByUserType(string userType, string? verifiedStatus)
+        {
+            try
+            {
+                return Ok(await _userRepository.GetUserByUserType(userType, verifiedStatus));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
     }
 }
