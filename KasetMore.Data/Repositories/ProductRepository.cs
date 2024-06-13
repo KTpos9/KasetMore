@@ -59,6 +59,7 @@ namespace KasetMore.Data.Repositories
                 var productToAdd = new Product
                 {
                     ProductName = product.ProductName,
+                    Description = product.Description,
                     Province = product.Province,
                     Rating = product.Rating,
                     Amount = product.Amount,
