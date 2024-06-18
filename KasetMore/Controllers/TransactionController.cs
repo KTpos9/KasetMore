@@ -1,5 +1,5 @@
-﻿using KasetMore.Data.Repositories.Interfaces;
-using Microsoft.AspNetCore.Http;
+﻿using KasetMore.Data.Models;
+using KasetMore.Data.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KasetMore.Controllers
@@ -15,10 +15,42 @@ namespace KasetMore.Controllers
             _transactionRepository = transactionRepository;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetTransactions()
+        [HttpGet("get-by-seller")]
+        public async Task<IActionResult> GetTransactionsBySeller(string sellerEmail)
         {
-            return Ok();
+            try
+            {
+                return Ok(await _transactionRepository.GetSellerTransactionsByEmail(sellerEmail));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+        [HttpGet("get-by-buyer")]
+        public async Task<IActionResult> GetTransactionsByBuyer(string buyerEmail)
+        {
+            try
+            {
+                return Ok(await _transactionRepository.GetBuyerTransactionsByEmail(buyerEmail));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+        [HttpPost("create")]
+        public async Task<IActionResult> CreateTransaction(List<Transaction> transaction)
+        {
+            try
+            {
+                await _transactionRepository.AddTransaction(transaction);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
     }
 }

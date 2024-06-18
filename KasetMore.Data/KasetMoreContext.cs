@@ -115,7 +115,6 @@ public partial class KasetMoreContext : DbContext
             entity.ToTable("transaction");
 
             entity.Property(e => e.TransactionId)
-                .ValueGeneratedNever()
                 .HasColumnName("transaction_id");
             entity.Property(e => e.Amount).HasColumnName("amount");
             entity.Property(e => e.BuyerEmail)
