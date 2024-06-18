@@ -54,11 +54,22 @@ namespace KasetMore.Data.Repositories
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
         }
-        public async Task Register(User user)
+        public async Task Register(RegisterModel user)
         {
             try
             {
-                _context.Users.Add(user);
+                _context.Users.Add(new User
+                {
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Address = user.Address,
+                    DisplayName = user.DisplayName,
+                    ProfilePicture = await ToBase64Image(user.ProfilePicture),
+                    Email = user.Email,
+                    Password = user.Password,
+                    PhoneNumber = user.PhoneNumber,
+                    UserType = "user",
+                });
                 await _context.SaveChangesAsync();
             } 
             catch(Exception)
@@ -83,9 +94,7 @@ namespace KasetMore.Data.Repositories
         {
             try
             {
-                using var memoryStream = new MemoryStream();
-                profilePicture.CopyTo(memoryStream);
-                var base64 = Convert.ToBase64String(memoryStream.ToArray());
+                var base64 = await ToBase64Image(profilePicture);
                 await _context.Users
                     .Where(u => u.Email == email)
                     .ExecuteUpdateAsync(u => u.SetProperty(u => u.ProfilePicture, base64));
@@ -107,6 +116,16 @@ namespace KasetMore.Data.Repositories
             {
                 throw;
             }
+        }
+        private async Task<string> ToBase64Image(IFormFile profilePicture)
+        {
+            if (profilePicture is null)
+            {
+                return string.Empty;
+            }
+            using var memoryStream = new MemoryStream();
+            await profilePicture.CopyToAsync(memoryStream);
+            return Convert.ToBase64String(memoryStream.ToArray());
         }
     }
 }

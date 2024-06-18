@@ -9,7 +9,7 @@ namespace KasetMore.Data.Repositories.Interfaces
         Task<UserDto?> GetUserByEmail(string email);
         Task<List<User>> GetUserByUserType(string userType, string? flag = null);
         Task<User?> AuthenticateUser(string email);
-        Task Register(User user);
+        Task Register(RegisterModel user);
         Task UpdateProfile(User userRequest);
         Task UpdateProfilePicture(IFormFile profilePicture, string email);
         Task UpdateVerifyFlag(string email, string flag);

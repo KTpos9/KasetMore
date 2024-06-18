@@ -30,7 +30,7 @@ namespace KasetMore.Controllers
                 : BadRequest();
         }
         [HttpPost("register")]
-        public async Task<IActionResult> Register(User user)
+        public async Task<IActionResult> Register(RegisterModel user)
         {
             try
             {
