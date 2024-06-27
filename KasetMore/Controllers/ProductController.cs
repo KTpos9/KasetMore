@@ -102,5 +102,18 @@ namespace KasetMore.Controllers
                 return BadRequest(e.Message);
             }
         }
+        [HttpPost("delete-product-images")]
+        public async Task<IActionResult> DeleteProductImages(int[] ids)
+        {
+            try
+            {
+                await _productRepository.DeleteProductImages(ids);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }

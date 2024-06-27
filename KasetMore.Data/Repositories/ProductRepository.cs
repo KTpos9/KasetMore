@@ -103,5 +103,18 @@ namespace KasetMore.Data.Repositories
                 throw;
             }
         }
+        public async Task DeleteProductImages(int[] ids)
+        {
+            try
+            {
+                await _context.ProductImages
+                    .Where(p => ids.Contains(p.AttatchmentId))
+                    .ExecuteDeleteAsync();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
