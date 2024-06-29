@@ -39,6 +39,18 @@ namespace KasetMore.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+        [HttpGet("get-by-id")]
+        public async Task<IActionResult> GetTransactionById(int id)
+        {
+            try
+            {
+                return Ok(await _transactionRepository.GetTransactionById(id));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
         [HttpPost("create")]
         public async Task<IActionResult> CreateTransaction(List<Transaction> transaction)
         {
