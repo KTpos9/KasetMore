@@ -56,8 +56,8 @@ namespace KasetMore.Controllers
         {
             try
             {
-                await _transactionRepository.AddTransaction(transaction);
-                return Ok();
+                var ids = await _transactionRepository.AddTransaction(transaction);
+                return Ok(ids);
             }
             catch (Exception ex)
             {

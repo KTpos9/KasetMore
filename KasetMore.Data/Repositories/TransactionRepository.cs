@@ -31,12 +31,13 @@ namespace KasetMore.Data.Repositories
                 .Where(t => t.TransactionId == id)
                 .FirstOrDefaultAsync();
         }
-        public async Task AddTransaction(List<Transaction> transactions)
+        public async Task<List<int>> AddTransaction(List<Transaction> transactions)
         {
             try
             {
                 _context.Transactions.AddRange(transactions);
                 await _context.SaveChangesAsync();
+                return transactions.Select(t => t.TransactionId).ToList();
             }
             catch (Exception)
             {
