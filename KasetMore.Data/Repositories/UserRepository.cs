@@ -77,12 +77,17 @@ namespace KasetMore.Data.Repositories
                 throw;
             }
         }
-        public async Task UpdateProfile(User userRequest)
+        public async Task UpdateProfile(UserDto userRequest)
         {
             try
             {
-                _context.Users.Update(userRequest);
-                await _context.SaveChangesAsync();
+                _context.Users
+                    .Where(u => u.Email == userRequest.Email)
+                    .ExecuteUpdate(u => u.SetProperty(u => u.FirstName, userRequest.FirstName)
+                                          .SetProperty(u => u.LastName, userRequest.LastName)
+                                          .SetProperty(u => u.DisplayName, userRequest.DisplayName)
+                                          .SetProperty(u => u.PhoneNumber, userRequest.PhoneNumber)
+                                          .SetProperty(u => u.Address, userRequest.Address));
             }
             catch (Exception)
             {

@@ -77,7 +77,7 @@ namespace KasetMore.Controllers
             }
         }
         [HttpPost("update-profile")]
-        public async Task<IActionResult> UpdateProfile(User userDto)
+        public async Task<IActionResult> UpdateProfile(UserDto userDto)
         {
             try
             {
