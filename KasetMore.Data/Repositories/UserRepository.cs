@@ -130,7 +130,7 @@ namespace KasetMore.Data.Repositories
             }
             using var memoryStream = new MemoryStream();
             await profilePicture.CopyToAsync(memoryStream);
-            return Convert.ToBase64String(memoryStream.ToArray());
+            return $"data:image / jpeg; base64,{Convert.ToBase64String(memoryStream.ToArray())}";
         }
     }
 }

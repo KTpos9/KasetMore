@@ -3,6 +3,7 @@ using KasetMore.Data.Models;
 using KasetMore.Data.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
 
 namespace KasetMore.Data.Repositories
 {
@@ -53,7 +54,7 @@ namespace KasetMore.Data.Repositories
                     await image.CopyToAsync(stream);
                     base64Images.Add(new ProductImage
                     {
-                        Image = Convert.ToBase64String(stream.ToArray())
+                        Image = $"data:image / jpeg; base64,{Convert.ToBase64String(stream.ToArray())}"
                     });
                 }
                 var productToAdd = new Product
