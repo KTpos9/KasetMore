@@ -37,7 +37,21 @@ namespace KasetMore.Data.Repositories
             {
                 _context.Transactions.AddRange(transactions);
                 await _context.SaveChangesAsync();
+                await RemoveProductAmount(transactions.First());
                 return transactions.Select(t => t.TransactionId).ToList();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        private async Task RemoveProductAmount(Transaction transaction)
+        {
+            try
+            {
+                await _context.Products
+                    .Where(p => p.ProductId == transaction.ProductId)
+                    .ExecuteUpdateAsync(p => p.SetProperty(p => p.Amount, p => p.Amount - transaction.Amount == 0 ? 0 : p.Amount - transaction.Amount));
             }
             catch (Exception)
             {
