@@ -69,6 +69,8 @@ namespace KasetMore.Data.Repositories
                     Password = user.Password,
                     PhoneNumber = user.PhoneNumber,
                     UserType = "user",
+                    IdNumber = user.IdNumber,
+                    LaserCode = user.LaserCode,
                 });
                 await _context.SaveChangesAsync();
             } 
@@ -121,6 +123,11 @@ namespace KasetMore.Data.Repositories
             {
                 throw;
             }
+        }
+        public async Task<bool> IsIdDuplicate(string idCardNumber)
+        {
+            return await _context.Users
+                .AnyAsync(u => u.IdNumber == idCardNumber);
         }
         private async Task<string> ToBase64Image(IFormFile profilePicture)
         {
